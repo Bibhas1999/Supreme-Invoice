@@ -25,6 +25,8 @@
                             <div class="card-header">
                                 
                                 <h5 class="text-center bg-sec rounded-lg shadow-lg py-2 px-2 font-weight-bold">CREATE REPORT
+                                    <a href="{{route('home')}}" class="text-center align-items-center btn bg-sec btn-sm"> <i class="fas fa-arrow-left"></i> Back</a>
+
                                 </h5>
                             </div>
                             <div class="card-body">
@@ -144,7 +146,7 @@
                                         </div>
                                         <div class="col-sm-4" style="padding-top:32px;">
                                             <div class="form-group">
-                                                <input type="submit" value="Update Report" class="btn  bg-sec">
+                                                <input type="submit" value="Create Report" class="btn  bg-sec">
                                                 <a href="{{route('dept_single.view',$dept_id)}}" class="btn bg-danger">Cancel</a>
                                             </div>
                                         </div>

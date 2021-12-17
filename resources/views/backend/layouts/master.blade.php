@@ -8,7 +8,8 @@ $route = Route::current()->getName();
 <head>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Supreme Health Care Invoice</title>
+    <title>Supreme Health Care </title>
+    <link rel="shortcut icon" href="{{ asset('backend/images/wm.png') }}" type="image/x-icon">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
@@ -32,29 +33,88 @@ $route = Route::current()->getName();
     <link rel="stylesheet" href="{{ asset('backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
     <!-- Bootstrap4 Duallistbox -->
     <style>
-    .bg-sec{
-     background-color: #6366F1;
-     color: #ffff;
-   } 
-   .bg-sec:hover {
-       color: white;
-   }
-   .bg-prim{
-     background-color: #F1F5F9;
-   } 
-   
-   .text-sec {
-     color: #6366F1;
-   }
-   .sidebar-dark-primary {
-    background-color: #1e293b;
-   }
-   /* Chart.js */
-@keyframes chartjs-render-animation{from{opacity:.99}to{opacity:1}}.chartjs-render-monitor{animation:chartjs-render-animation 1ms}.chartjs-size-monitor,.chartjs-size-monitor-expand,.chartjs-size-monitor-shrink{position:absolute;direction:ltr;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1}.chartjs-size-monitor-expand>div{position:absolute;width:1000000px;height:1000000px;left:0;top:0}.chartjs-size-monitor-shrink>div{position:absolute;width:200%;height:200%;left:0;top:0}
+        .bg-sec {
+            background-color: #6366F1;
+            color: #ffff;
+        }
+
+        .bg-sec:hover {
+            color: white;
+        }
+
+        .active {
+            background-color: #6366F1;
+            color: #ffff;
+        }
+
+        .active:hover {
+            background-color: #6366F1;
+            color: #ffff;
+        }
+
+        .bg-prim {
+            background-color: #F1F5F9;
+        }
+
+        .text-sec {
+            color: #6366F1;
+        }
+
+        .sidebar-dark-primary {
+            background-color: #1e293b;
+        }
+
+        /* Chart.js */
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: .99
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            animation: chartjs-render-animation 1ms
+        }
+
+        .chartjs-size-monitor,
+        .chartjs-size-monitor-expand,
+        .chartjs-size-monitor-shrink {
+            position: absolute;
+            direction: ltr;
+            left: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            pointer-events: none;
+            visibility: hidden;
+            z-index: -1
+        }
+
+        .chartjs-size-monitor-expand>div {
+            position: absolute;
+            width: 1000000px;
+            height: 1000000px;
+            left: 0;
+            top: 0
+        }
+
+        .chartjs-size-monitor-shrink>div {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            left: 0;
+            top: 0
+        }
+
     </style>
 </head>
 
-<body class=" layout-fixed sidebar-closed  layout-footer-fixed layout-navbar-fixed" data-panel-auto-height-mode="height" style="height: auto;">
+<body class=" layout-fixed sidebar-closed  layout-footer-fixed layout-navbar-fixed" data-panel-auto-height-mode="height"
+    style="height: auto;">
 
     <img src="{{ asset('backend/images/load.gif') }}" alt="" srcset="" class="load"
         style="height: 100px;width:100px;z-index:999;position:fixed;left:47%;bottom:47%">
@@ -123,7 +183,7 @@ $route = Route::current()->getName();
 
 
         @yield('content')
-         
+
         <footer class="main-footer py-1">
             <strong>Copyright &copy; 2021</strong>
             All rights reserved By <strong><a class="text-sec" href="https://bibhasash.great-site.net/"
@@ -155,7 +215,7 @@ $route = Route::current()->getName();
     <script src="{{ asset('backend/plugins/chartjs/Chart.min.js') }}"></script>
     <script src="{{ asset('backend/handlebars/handlebars.min.js') }}"></script>
 
-{{-- <script>
+    {{-- <script>
   $(function () {
     /* ChartJS
      * -------
@@ -341,6 +401,17 @@ $route = Route::current()->getName();
 </script> --}}
     <script type="text/javascript">
         $(document).ready(function() {
+            
+            function disableBack() {
+                window.history.forward()
+            }
+            window.onload = disableBack();
+            window.onpageshow = function(e) {
+                if (e.persisted)
+                    disableBack();
+            }
+
+            
             $('#myForm').validate({
                 rules: {
                     email: {
@@ -664,7 +735,37 @@ $route = Route::current()->getName();
         })
     </script>
 
-
+    <script>
+        $('.invoice_tbl').hide(); 
+        $('.appointment_tbl').hide(); 
+        $('.card_title').text('Today Reports');    
+        var date = new Date().toString();     
+        $(document).on('click', '#all_report', function() {
+            $('.card_title').text('Today Reports');
+            $('#all_appointment').removeClass('active');
+            $('#all_invoice').removeClass('active');
+            $('.invoice_tbl').hide(); 
+            $('.appointment_tbl').hide(); 
+            $('.report_tbl').show(); 
+        });
+        $(document).on('click', '#all_appointment', function() {
+            $('.card_title').text('Today Appointments');
+            $('#all_invoice').removeClass('active');
+            $('#all_report').removeClass('active');
+            $('.invoice_tbl').hide(); 
+            $('.report_tbl').hide(); 
+            $('.appointment_tbl').show(); 
+        });
+        $(document).on('click', '#all_invoice', function() {
+            $('.card_title').text('Today Invoices');
+            $('#all_appointment').removeClass('active');
+            $('#all_report').removeClass('active');
+            
+            $('.report_tbl').hide(); 
+            $('.appointment_tbl').hide(); 
+            $('.invoice_tbl').show();    
+        });
+    </script>
 </body>
 
 </html>

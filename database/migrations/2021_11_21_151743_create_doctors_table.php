@@ -18,6 +18,7 @@ class CreateDoctorsTable extends Migration
             $table->string('name');
             $table->string('spec');
             $table->string('degree');
+            $table->double('fees');
             $table->tinyInteger('status')->default('1');
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();

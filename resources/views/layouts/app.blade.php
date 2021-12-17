@@ -4,14 +4,17 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#6366F1">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Supreme Invoice</title>
+    <title>Supreme Health Care</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="shortcut icon" href="{{ asset('backend/images/wm.png') }}" type="image/x-icon">
+
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('backend/js/bootstrap.min.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,6 +80,18 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
+
+            function disableBack() {
+                
+                window.history.forward();
+            }
+            window.onload = disableBack();
+            window.onpageshow = function(e) {
+                
+                if (e.persisted)
+                    disableBack();
+            }
+
             $('#myForm').validate({
                 rules: {
                     email: {

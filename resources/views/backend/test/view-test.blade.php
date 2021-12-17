@@ -14,7 +14,8 @@
                         <div class="card text-dark">
                             <div class="card-header">
                                 <h5 class="text-center bg-sec rounded-lg shadow-lg py-2 px-2 font-weight-bold">ALL TESTS
-                                   
+                                    <a href="{{route('home')}}" class="text-center float-left text-md text-white mt-1"> <i class="fas fa-arrow-left"></i> Back</a>
+
                                 </h5>
                             </div>
                             <div class="card-body">

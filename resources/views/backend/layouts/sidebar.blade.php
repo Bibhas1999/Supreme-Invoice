@@ -35,11 +35,37 @@ $user = Auth::user();
             </a>
         </li>
         <li class="nav-item">
-            <a href="../widgets.html" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
+            <a href="" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
                 <p>
-                    Widgets
-                    <span class="right badge badge-danger">New</span>
+                    Privacy Policy
+                </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                    Terms & Conditions
+                </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                    Developers Manual
+                </p>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                    About Us
                 </p>
             </a>
         </li>

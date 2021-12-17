@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Invoice;
+use App\Model\OpdInvoice;
 use App\Model\InvoiceDetails;
 use App\Model\Payment;
 use App\Model\Test;
@@ -33,4 +34,14 @@ class DefaultController extends Controller
     $pdf->SetProtection(['copy', 'print'], '', 'pass');
     return $pdf->stream($payment['customer']['name'] . '-' .'report.pdf');
   }
+  public function downloadOPDInvoice($id)
+  {
+    $data['invoice'] = OpdInvoice::find($id); 
+    $inv = OpdInvoice::find($id); 
+    $app = Appointment::where('id',$inv->app_id)->first();
+    $pdf = PDF::loadView('backend.pdf.opd-invoice-pdf', $data);
+    $pdf->SetProtection(['copy', 'print'], '', 'pass');
+    return $pdf->stream($app->patient_name."-".'invoice.pdf');
+  }
+  
 }

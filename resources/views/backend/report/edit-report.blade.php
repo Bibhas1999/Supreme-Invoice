@@ -127,7 +127,7 @@
                                         </div>
                                         <div class="col-sm-4" style="padding-top:32px;">
                                             <div class="form-group">
-                                                <input type="submit" value="Create Report" class="btn  bg-sec">
+                                                <input type="submit" value="Update Report" class="btn  bg-sec">
                                                 <a href="{{route('dept_single.view',$dept_id)}}" class="btn bg-danger">Cancel</a>
                                             </div>
                                         </div>

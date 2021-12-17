@@ -29,6 +29,7 @@ class DoctorController extends Controller
         $data->name = "Dr."." ".$request->name;
         $data->spec= $request->spec;
         $data->degree= $request->degree;
+        $data->fees= $request->fees;
         $data->created_by = Auth::user()->name;
         $data->save();
         if ($data->save()) {
@@ -53,6 +54,7 @@ class DoctorController extends Controller
         $data->name = $request->name;
         $data->spec= $request->spec;
         $data->degree= $request->degree;
+        $data->fees= $request->fees;
         $data->updated_by = Auth::user()->name;
         $data->save();
         if ($data->save()) {

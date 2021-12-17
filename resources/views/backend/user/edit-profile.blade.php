@@ -89,7 +89,7 @@
                                                         {{ $editData->gender == 'Male' ? 'selected' : '' }}>
                                                         Male</option>
                                                     <option value="Female"
-                                                        {{ $editData->usertype == 'Female' ? 'selected' : '' }}>Female
+                                                        {{ $editData->gender == 'Female' ? 'selected' : '' }}>Female
                                                     </option>
                                                 </select>
                                             </div>

@@ -14,7 +14,8 @@
                         <div class="card text-dark">
                             <div class="card-header">
                                 <h5 class="text-center bg-sec rounded-lg shadow-lg py-2 px-2 font-weight-bold">DOCTORS
-                                   
+                                    <a href="{{ route('opd.view') }}" class="float-left text-white text-sm px-2 py-1"> <i
+                                        class="fas fa-arrow-left"></i> Back </a>
                                 </h5>
                             </div>
                             <div class="card-body">
@@ -47,7 +48,14 @@
                                             </div>
                                         </div>
 
-                                       
+                                        <div class="col-sm-2">
+                                            <!-- select -->
+                                            <div class="form-group">
+                                                <label>Fees(Rs)</label>
+                                                <input type="text" class="form-control form-control-sm"
+                                                placeholder="Enter Doctor Fee Amount" name="fees">
+                                            </div>
+                                        </div>
                                         <div class="col-sm-2" style="padding-top:32px;">
                                             <div class="form-group">
                                                 <input type="submit" value="Add Doctor" class="btn btn-sm bg-sec">
@@ -67,6 +75,7 @@
                                             <th class="text-center">Name</th>
                                             <th class="text-center">Specialization</th>
                                             <th class="text-center">Degree</th>
+                                            <th class="text-center">Fees</th>
                                             <th class="text-center">Action</th>
                                     </thead>
                                     <tbody>
@@ -77,6 +86,7 @@
                                                 <td class="text-center">{{ $doctor->name }}</td>
                                                 <td class="text-center">{{ $doctor->spec }}</td>
                                                 <td class="text-center">{{ $doctor->degree }}</td>
+                                                <td class="text-center">Rs. {{ $doctor->fees }}</td>
                                                 <td class="text-center">
 
                                                     <a href="{{ route('doctors.edit', $doctor->id) }}"

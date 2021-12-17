@@ -14,7 +14,8 @@
                         <div class="card text-dark">
                             <div class="card-header">
                                 <h5 class="text-center bg-sec rounded-lg shadow-lg py-2 px-2 font-weight-bold">DOCTOR SCHEDULE
-                                   
+                                    <a href="{{ route('opd.view') }}" class="float-left text-white text-sm px-2 py-1"> <i
+                                        class="fas fa-arrow-left"></i> Back </a>
                                 </h5>
                             </div>
                             <div class="card-body">

@@ -47,6 +47,16 @@
                                                 placeholder="Enter Degree" name="degree" value="{{$editData->degree}}">
                                             </div>
                                         </div>
+
+                                        <div class="col-sm-2">
+                                            <!-- select -->
+                                            <div class="form-group">
+                                                <label>Fees(Rs)</label>
+                                                <input type="text" class="form-control form-control-sm"
+                                                placeholder="Enter Doctor Fee Amount" name="fees" value="{{$editData->fees}}">
+                                            </div>
+                                        </div>
+
                                         <div class="col-sm-2" style="padding-top:32px;">
                                             <div class="form-group ">
                                                 <input type="submit" value="Submit" class="btn btn-sm bg-sec " >

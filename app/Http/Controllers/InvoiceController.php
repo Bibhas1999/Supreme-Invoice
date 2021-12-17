@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Model\Appointment;
 use App\Model\Customer;
 use App\Model\Dept;
+use App\Model\Doctor;
 use App\Model\Invoice;
 use App\Model\InvoiceDetails;
+use App\Model\OPDInvoice;
+use App\Model\OPDPayment;
 use App\Model\Payment;
 use App\Model\PaymentDetails;
 use App\Model\Test;
@@ -353,6 +357,7 @@ class InvoiceController extends Controller
         return $pdf->stream($data['invoice']['payment']['customer']['name'] . '-' . 'invoice.pdf');
     }
 
+    //report section
     public function dailyReportPdf(Request $request)
     {
         $sdate = date('Y-m-d', strtotime($request->start_date));
@@ -444,13 +449,12 @@ class InvoiceController extends Controller
     public function reportPdf($id)
     {
         $data['invoice_details'] = InvoiceDetails::find($id);
-        $payment = Payment::where('invoice_id',$id)->first();
+        $payment = Payment::where('invoice_id', $id)->first();
         $pdf = PDF::loadView('backend.pdf.report-pdf', $data);
         $pdf->SetProtection(['copy', 'print'], '', 'pass');
-        return $pdf->stream($payment['customer']['name'] . '-' .'report.pdf');
+        return $pdf->stream($payment['customer']['name'] . '-' . 'report.pdf');
     }
 
-   
     public function reportDelete($id)
     {
         $data = InvoiceDetails::find($id);
@@ -460,6 +464,62 @@ class InvoiceController extends Controller
         $data->report_file = null;
         $data->save();
         return redirect()->back();
+    }
+
+    // opd invoice section
+
+    public function opdInvoiceView()
+    {
+        return view('backend.invoice.view-opd-invoice');
+    }
+
+    public function opdInvoiceAdd($id)
+    {
+        $data['app'] = Appointment::find($id);
+        return view('backend.invoice.add-opd-invoice', $data);
+    }
+    public function storeOpdInvoice(Request $request, $id)
+    {
+        $app = Appointment::find($id);
+        $invoice = new Opdinvoice();
+        $invoice->invoice_no = "INVSHC".time();
+        $invoice->app_id = $id;
+        $invoice->doctor = $request->doctor;
+        $invoice->description = $request->description;
+        $invoice->created_by = Auth::user()->name;
+        $invoice->save();
+
+        $payment = new Opdpayment();
+        $payment->invoice_id = $invoice->id;
+        $payment->total_amount = $request->doc_fees;
+        $payment->paid_amount = $request->doc_fees;
+        $payment->due_amount = $request->due_amount;
+        if ($payment->due_amount > 0) {
+            $payment->payment_status = "0";
+        } else {
+            $payment->payment_status = "1";
+        }
+        $payment->payment_mode = $request->payment_mode;
+        $payment->created_by = Auth::user()->name;
+        $payment->save();
+        if ($payment->save() && $invoice->save()) {
+
+            Alert::Success('Success', 'Invoice Generated Successfully');
+            return redirect()->back();
+        } else {
+            return redirect()->back();
+            Alert::Error('Failed', 'Something Went Wrong and Invoice not saved');
+        }
+    }
+
+    public function OpdInvoicePDF($id)
+    {
+        $data['invoice'] = Opdinvoice::find($id);
+        $inv = OpdInvoice::find($id);
+        $app = Appointment::where('id', $inv->app_id)->first();
+        $pdf = PDF::loadView('backend.pdf.opd-invoice-pdf', $data);
+        $pdf->SetProtection(['copy', 'print'], '', 'pass');
+        return $pdf->stream($app->patient_name . "-" . 'invoice.pdf');
     }
 
 }

@@ -25,17 +25,32 @@ Route::get('/', function () {
 
 
 Auth::routes();
-
+// extra routes
 Route::get('/home', 'HomeController@index')->name('home');
-// Route::get('/view', 'InvoiceController@view')->name('invoice.view');
 Route::get('/download/invoice/{id}', 'DefaultController@downloadInvoice')->name('download-invoice-pdf');
+Route::get('/download/opd/invoice/{id}', 'DefaultController@downloadOPDInvoice')->name('download-opd-invoice-pdf');
 Route::get('/download/report/{id}', 'DefaultController@downloadReport')->name('download-report-pdf');
 Route::get('/get-email', 'UserController@getEmail')->name('get-email');
 Route::post('/setpass', 'UserController@setNewPass')->name('set-pass');
 Route::post('/set/new-pass/{id}', 'UserController@setNewPassword')->name('set-new-pass');
+
+//group middleware 
 Route::group(['middleware'=>'islogin'], function(){
 
+//routes for appointment
+Route::prefix('apps')->group(function () {
 
+Route::get('/appointments','AppointmentController@view')->name('apps.view');
+Route::get('/appointments/add/{id}','AppointmentController@add')->name('apps.add');
+Route::post('/appointments/store/','AppointmentController@store')->name('apps.store');
+Route::get('/appointments/edit/{id}','AppointmentController@edit')->name('apps.edit');
+Route::post('/appointments/update/{id}','AppointmentController@update')->name('apps.update');
+Route::post('/appointments/delete/{id}','AppointmentController@delete')->name('apps.delete');
+Route::get('/appointments/doctor/{id}/{sche_id}','AppointmentController@appBydoctor')->name('apps.bydoctor');
+
+});
+
+//routes for users
 Route::prefix('users')->group(function () {
 
     Route::get('/view', 'UserController@view')->name('users.view');
@@ -56,6 +71,7 @@ Route::prefix('users')->group(function () {
 
 });
 
+//routes for department
 Route::prefix('depts')->group(function () {
 
     Route::get('/view', 'DeptController@view')->name('depts.view');
@@ -66,6 +82,7 @@ Route::prefix('depts')->group(function () {
     Route::get('/view/single/dept/{id}','DeptController@DeptView')->name('dept_single.view');
 });
 
+//routes for doctor
 Route::prefix('doctors')->group(function () {
 
     Route::get('/view', 'DoctorController@view')->name('doctors.view');
@@ -75,6 +92,7 @@ Route::prefix('doctors')->group(function () {
     Route::get('/delete/{id}', 'DoctorController@delete')->name('doctors.delete');
 });
 
+//routes for schedule
 Route::prefix('schedules')->group(function () {
 
     Route::get('/view', 'ScheduleController@view')->name('schedules.view');
@@ -84,6 +102,7 @@ Route::prefix('schedules')->group(function () {
     Route::get('/delete/{id}', 'ScheduleController@delete')->name('schedules.delete');
 });
 
+//routes for testtype
 Route::prefix('testtypes')->group(function () {
 
     Route::get('/view', 'TesttypeController@view')->name('testtypes.view');
@@ -93,8 +112,7 @@ Route::prefix('testtypes')->group(function () {
     Route::get('/delete/{id}', 'TesttypeController@delete')->name('testtypes.delete');
 });
 
-
-
+//routes for test
 Route::prefix('tests')->group(function () {
 
     Route::get('/view', 'TestController@view')->name('tests.view');
@@ -107,7 +125,7 @@ Route::prefix('tests')->group(function () {
     
 });
 
-
+//routes for customer
 Route::prefix('customers')->group(function(){
     
     Route::get('/view', 'CustomerController@view')->name('customers.view');
@@ -127,6 +145,7 @@ Route::prefix('customers')->group(function(){
 
 });
 
+//routes for invoice
 Route::prefix('invoice')->group(function(){
     
     Route::get('/view', 'InvoiceController@view')->name('invoice.view');
@@ -154,10 +173,14 @@ Route::prefix('invoice')->group(function(){
     Route::get('/delete-generated-report/{id}', 'InvoiceController@reportGdelete')->name('delete-generated-report');
     Route::get('/delete-report/{id}', 'InvoiceController@reportDelete')->name('delete-report');
     Route::get('/report/pdf/{id}', 'InvoiceController@reportPdf')->name('report-pdf');
+    Route::get('/opd/invoice/view', 'InvoiceController@opdInvoiceView')->name('opd-invoice-view');
+    Route::get('/opd/invoice/add/{id}', 'InvoiceController@opdInvoiceAdd')->name('opd-invoice-add');
+    Route::post('/opd/invoice/store/{id}', 'InvoiceController@storeOpdInvoice')->name('opd-invoice-store');
+    Route::get('/opd/invoice/pdf/{id}', 'InvoiceController@OpdInvoicePDF')->name('opd-invoice-pdf');
     
 });
 
-
+//routes for profile
 Route::prefix('profiles')->group(function(){
     
     Route::get('/view', 'ProfileController@view')->name('profiles.view');
@@ -171,6 +194,7 @@ Route::prefix('profiles')->group(function(){
 
 }); 
 
+//routes for report
 Route::prefix('reports')->group(function(){
     
     Route::get('/view', 'ReportController@view')->name('reports.view');
@@ -183,7 +207,7 @@ Route::prefix('reports')->group(function(){
 
 });
 
-
+//routes for get price
 Route::get('/get-price', 'DefaultController@getPrice')->name('get-price');
 
 });
